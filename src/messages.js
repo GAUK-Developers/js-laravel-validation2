@@ -110,7 +110,17 @@ export const messages = {
     uuid: () => "The :attribute must be a valid UUID.",
 };
 
+const backupMessages = Object.assign({}, messages);
+
 //export default messages;
+
+function getCurrentMessageHandlers() {
+    return messages;
+}
+
+function revertMessageHandlers() {
+    Object.assign(messages, backupMessages)
+}
 
 function setMessageHandlers(newMessages) {
     Object.assign(messages, newMessages);
@@ -138,4 +148,6 @@ export {
     setMessageHandler,
     getMessage,
     getMessageHandler,
+    revertMessageHandlers,
+    getCurrentMessageHandlers
 }
