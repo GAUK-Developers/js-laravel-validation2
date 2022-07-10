@@ -6,8 +6,8 @@ export const messages = {
       //This cannot be supported because JS does not support hostname lookups (dns_get_record in PHP)
       //This could be implemented if there was a reliable way to host a small API to do the lookup
     // },
-    after: () => "The :attribute must be a date after :date.",
-    after_or_equal: () => "The :attribute must be a date after or equal to :date.",
+    after: () => "The :attribute must be after :date.",
+    after_or_equal: () => "The :attribute must be after or equal to :date.",
 
     alpha: () => "The :attribute may only contain letters.",
     alpha_dash: () => "The :attribute may only contain letters, numbers, dashes and underscores.", // I don't think that's what this rule does

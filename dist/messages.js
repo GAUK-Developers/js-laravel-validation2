@@ -25,10 +25,10 @@ var messages = {
   //This could be implemented if there was a reliable way to host a small API to do the lookup
   // },
   after: function after() {
-    return "The :attribute must be a date after :date.";
+    return "The :attribute must be after :date.";
   },
   after_or_equal: function after_or_equal() {
-    return "The :attribute must be a date after or equal to :date.";
+    return "The :attribute must be after or equal to :date.";
   },
   alpha: function alpha() {
     return "The :attribute may only contain letters.";
