@@ -40,5 +40,10 @@
     "transform": {
       ".*": "./node_modules/babel-jest"
     }
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "numeral": "^2.0.6"
   }
 }
