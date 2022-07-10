@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nik-m2/js-laravel-validation.git"
+    "url": "git+https://github.com/gravitymedianet/js-laravel-validation2.git"
   },
   "keywords": [
     "laravel",
@@ -23,10 +23,11 @@
   ],
   "author": "Nik M",
   "license": "ISC",
+  "contributors": [{ "name": "David T" }],
   "bugs": {
-    "url": "https://github.com/nik-m2/JS-Laravel-validation/issues"
+    "url": "https://github.com/gravitymedianet/JS-Laravel-validation2/issues"
   },
-  "homepage": "https://github.com/nik-m2/JS-Laravel-validation#readme",
+  "homepage": "https://github.com/gravitymedianet/JS-Laravel-validation2#readme",
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.1.5",

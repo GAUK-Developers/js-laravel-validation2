@@ -1,17 +1,33 @@
-# js-laravel-validation [![npm version](https://badge.fury.io/js/js-laravel-validation.svg)](https://badge.fury.io/js/js-laravel-validation) [![Build Status](https://travis-ci.org/nik-m2/js-laravel-validation.svg?branch=master)](https://travis-ci.org/nik-m2/js-laravel-validation)
+# js-laravel-validation2 [![npm version](https://badge.fury.io/js/js-laravel-validation2.svg)](https://badge.fury.io/js/js-laravel-validation2) [![Build Status](https://travis-ci.org/nik-m2/js-laravel-validation2.svg?branch=master)](https://travis-ci.org/nik-m2/js-laravel-validation2)
 
 Useful for having consistent server side and client side validation with Laravel
 
-All rules are base on documentation from https://laravel.com/docs/5.7/validation#available-validation-rules
+All rules are base on documentation from https://laravel.com/docs/9.x/validation#available-validation-rules
+
+## IMPORTANT NOTE
+
+This package is NOT THE SAME as js-laravel-validation.
+
+That package attempts to validate IN THE STYLE of Laravel.
+
+This package validates with the goal of pushing TO Laravel.
+
+js-laravel-validation returns false on the rule 'numeric' for the value '123' because it is a string.
+
+Therefore, this packages attempts to convert parseable parameter strings into numbers before doing validation.
+
+You MUST however pass a numeric value to compare against.
+
+In this package the string '123' passes the rule 'numeric|gt:0'
 
 ## Setup
 
-Install: `npm install js-laravel-validation`
+Install: `npm install js-laravel-validation2`
 
 ## Usage
 
 ```javascript
-  import { validateForm } from "js-laravel-validation";
+  import { validateForm } from "js-laravel-validation2";
 
   const formData = {
     username: {
@@ -36,9 +52,9 @@ Install: `npm install js-laravel-validation`
 
 | Function Name  | Description |
 | ------------- | ------------- |
-| [validateForm(options)](https://github.com/nik-m2/js-laravel-validation/blob/master/docs/validateForm.md)  | Takes a number of options to validate the form data  |
-| [setMessageHandler(rule, createMessage)](https://github.com/nik-m2/js-laravel-validation/blob/master/docs/setMessageHandler.md)  | Sets or replaces the current message handler for the specified rule |
-| [setMessageHandlers(messages)](https://github.com/nik-m2/js-laravel-validation/blob/master/docs/setMessageHandlers.md)  | Replaces multiple message handers  |
+| [validateForm(options)](https://github.com/nik-m2/js-laravel-validation2/blob/master/docs/validateForm.md)  | Takes a number of options to validate the form data  |
+| [setMessageHandler(rule, createMessage)](https://github.com/nik-m2/js-laravel-validation2/blob/master/docs/setMessageHandler.md)  | Sets or replaces the current message handler for the specified rule |
+| [setMessageHandlers(messages)](https://github.com/nik-m2/js-laravel-validation2/blob/master/docs/setMessageHandlers.md)  | Replaces multiple message handers  |
 
 ## Missing Rules
 - `active_url` 
