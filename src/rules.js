@@ -3,28 +3,55 @@
 
 import timezones from './constants/timezones.js'
 import mimes from './constants/mimes.js'
+import moment from 'moment';
+import numeral from 'numeral';
 
 export default {
-    accepted: ({ value }) => isNotEmpty(value) && value != 0,
     
+    // TODO test
+    accepted: ({ value }) => ['yes', 'on', 1, true].includes(value),
+
+    // TODO test
+    accepted_if: ({ value, values, params }) => values[params[0]] === params[1] && ['yes', 'on', 1, true].includes(value),
+
     // active_url: ({ value }) => {
     //This cannot be supported because JS does not support hostname lookups (dns_get_record in PHP)
     //This could be implemented if there was a reliable way to host a small API to do the lookup
     // },
     
-    after: ({ value, params }) => b(new Date(value) > new Date(params[0])),
-    after_or_equal: ({ value, params }) => b(new Date(value) >= new Date(params[0])),
+    // TODO test
+    after: ({ value, params, values }) => values[params[0]] !== undefined ? b(value > toNumber(values[params[0]])) : b(new Date(value) > new Date(params[0])),
+    
+    // TODO test
+    after_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(value >= toNumber(values[params[0]])) : b(new Date(value) >= new Date(params[0])),
     
     alpha: ({ value }) => b(typeof value === 'string') && !/[^a-z]/i.test(value),
     alpha_dash: ({ value }) => b(typeof value === 'string') && /^[A-Za-z\-_]+$/i.test(value), // Unicode is still missing!
     alpha_num: ({ value }) => b(typeof value === 'string') && /^[a-z0-9]+$/i.test(value),
     
-    array: ({ value }) => Array.isArray(value),
+    // TODO test
+    array: ({ value, params }) => {
+        if(!Array.isArray(value)) return false;
+        if(params.length && value.length){
+            for(let x in value){
+                if(typeof value[x] !== 'object' || value[x] === null) return false;
+                const row = value[x];
+                const keys = Object.keys(row);
+                for(let y in keys){
+                    if(!params.includes(keys[y])) return false;
+                }
+            }
+        }
+        return true;
+    },
     
     //bail: handled in index.js
     
-    before: ({ value, params }) => b(new Date(value) < new Date(params[0])),
-    before_or_equal: ({ value, params }) => b(new Date(value) <= new Date(params[0])),
+    // TODO test
+    before: ({ value, params, values }) => values[params[0]] !== undefined ? b(value < toNumber(values[params[0]])) : b(new Date(value) < new Date(params[0])),
+
+    // TODO test
+    before_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(value <= toNumber(values[params[0]])) : b(new Date(value) <= new Date(params[0])),
     
     between: ({ value, params }) => {
         if (typeof value !== 'number' && !value) return false;
@@ -33,14 +60,22 @@ export default {
         return value > min && value < max;
     },
     
-    boolean: ({ value }) => typeof value === 'boolean',
+    // TODO test
+    boolean: ({ value }) => typeof value === 'boolean' || [1, 0,'1','0','true','false'].includes(value),
     
     confirmed: ({ value, key, values }) => b(value === values[`${key}_confirmation`]),
     
     date: ({ value }) => b(typeof value !== 'number' && !isNaN(Date.parse(value))),
     date_equals: ({ value, params }) => (Date.parse(value) === Date.parse(params[0])),
     
-    //date_format
+    // TODO test
+    date_format: ({ value, params }) => moment(value, params[0]).format(params[0]) === value,
+
+    // TODO test
+    declined: ({ value }) => ['no','off',0,false].includes(value),
+
+    // TODO test
+    declined_if: ({ value, params, values }) => values[params[0]] === params[1] && ['no','off',0,false].includes(value),
     
     different: ({ value, values, params }) => b(value !== values[params[0]]),//allows same arrays and objects
     
@@ -107,13 +142,25 @@ export default {
         }
         return String(value).endsWith(params[0]);
     },
+
+    // enum
+
+    // exclude
+
+    // exclude unless
+
+    // exclude with
+
+    // exclude without
+
+    // exists
     
     file: ({ value }) => value instanceof File,
     
     filled: ({ value }) => isNotEmpty(value),
     
-    gt: ({ value, values, params }) => values[params[0]] === undefined || value > values[params[0]],
-    gte: ({ value, values, params }) => values[params[0]] === undefined || value >= values[params[0]],
+    gt: ({ value, values, params }) => values[params[0]] === undefined || value > toNumber(values[params[0]]),
+    gte: ({ value, values, params }) => values[params[0]] === undefined || value >= toNumber(values[params[0]]),
     
     image: ({ value }) => value instanceof Image,
     
@@ -139,6 +186,11 @@ export default {
     
     lt: ({ value, values, params }) => value < values[params[0]],
     lte: ({ value, values, params }) => value <= values[params[0]],
+
+    // TODO: test
+    // Created by luthraG
+    // https://github.com/luthraG/is-mac-address
+    mac_address: ({ value }) =>  value && /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/.test(value),
     
     max: ({ value, params }) => (b(value) || typeof value === 'number') && sizeOf(value) <= params[0],
     
@@ -167,6 +219,9 @@ export default {
     },
     
     min: ({ value, params }) => (b(value) || typeof value === 'number') && sizeOf(value) >= params[0],
+
+    // TODO test
+    multiple_of: ({ value, params }) => typeof value === 'number' && params[0] && toNumber(params[0]) !== 0 && value % toNumber(params[0]) === 0,
     
     not_in: ({ value, params }) => params.findIndex(param => deepEquals(param, value)) === -1,
     
@@ -174,8 +229,9 @@ export default {
     
     //nullable: implemented in `validateField` method (index.js)
     
+    // TODO test
     numeric: ({ value }) => {
-        if (typeof value === 'number') {
+        if (typeof value === 'number' || (typeof value === 'string' && !isNaN(Number(value)))) {
             return true;
         }
         
@@ -185,10 +241,21 @@ export default {
         
         return !isNaN(value);
     },
+
+    // password
     
     present: ({ value }) => value !== undefined,
+
+    // prohibited
     
-    //regex
+    // prohibited_if
+
+    // prohibited_unless
+
+    // prohibits
+
+    // TODO test
+    regex: ({ value }) => { try{ new RegExp(value) } catch(err) { return false } return true },
     
     required: ({ value }) => isNotEmpty(value),
     required_if: ({ value, params, values }) => values[params[0]] == params[1] ? isNotEmpty(value) : true,
@@ -218,6 +285,8 @@ export default {
         return !required || isNotEmpty(value);
     },
 
+    // required_array_keys
+
     same: ({ value, values, params }) => b(value === values[params[0]]),//allows same arrays and objects
 
     size: ({ value, params }) => {
@@ -235,6 +304,8 @@ export default {
     string: ({ value }) => typeof value === 'string',
 
     timezone: ({ value }) => timezones.includes(value),
+
+    // unique
 
     url: ({ value }) => /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value),
 
@@ -298,4 +369,9 @@ function deepEquals(x, y) {
     else
     return false;
 }
-                
+
+// Attempts to convert a value to a number
+function toNumber(value){
+    const result = numeral(value).value();
+    return result === null ? 0 : result;
+}
