@@ -1,12 +1,11 @@
 
 export const messages = {
     accepted: () => "The :attribute must be accepted.",
-
+    accepted_if: () => "The :attribute must be accepted when :other is :value.",
     // active_url: ({ value }) => {
       //This cannot be supported because JS does not support hostname lookups (dns_get_record in PHP)
       //This could be implemented if there was a reliable way to host a small API to do the lookup
     // },
-
     after: () => "The :attribute must be a date after :date.",
     after_or_equal: () => "The :attribute must be a date after or equal to :date.",
 
@@ -18,10 +17,10 @@ export const messages = {
 
     //bail: is on by default but is `validateForm` call
 
-    before: () => "The :attribute must be a date before :date.",
-    before_or_equal: () => "The :attribute must be a date before or equal to :date.",
+    before: () => "The :attribute must be before :date.",
+    before_or_equal: () => "The :attribute must be before or equal to :date.",
 
-    between: () => "",  // TODO this one is more complicated
+    between: () => "The :attribute must be between :min and :max",  // TODO this one is more complicated
 
     boolean: () => "The :attribute field must be true or false.",
 
@@ -29,8 +28,10 @@ export const messages = {
     
     date: () => "The :attribute is not a valid date.",
     date_equals: () => "The :attribute must be a date equal to :date.",
+    date_format: () => "The :attribute does not match the format :format.",
 
-    //date_format: () => "The :attribute does not match the format :format.",
+    declined: () => "You must decline :attribute.",
+    declined_if: () => "You must decline :attribute if :other is :value.",
 
     different: () => "The :attribute and :other must be different.",
 
@@ -47,8 +48,8 @@ export const messages = {
 
     filled: () => "The :attribute field must have a value.",
 
-    gt: () => "", // TODO this one is more complicated
-    gte: () => "", // TODO this one is more complicated
+    gt: () => "The :attribute must be greater than :value.", // TODO this one is more complicated
+    gte: () => "The attribute must be greater than or equal to :value.", // TODO this one is more complicated
 
     image: () => "The :attribute must be an image.",
 
@@ -63,10 +64,14 @@ export const messages = {
 
     json: () => "The :attribute must be a valid JSON string.",
 
-    lt: () => "", // TODO this is more complicated, and is it done with size?
-    lte: () => "", // TODO this is more complicated, and is it done with size?
+    lt: () => "The :attribute must be less than :value.", // TODO this is more complicated, and is it done with size?
+    lte: () => "The :attribute must be less than or equal to :value.", // TODO this is more complicated, and is it done with size?
+
+    mac_access: () => "Invalid MAC address.",
 
     max: () => "", // TODO this is more complicated, and is it done with size?
+
+    multiple_of: () => "The :attribute must be a multiple of :value.",
 
     // mimes?
     // mimetypes?
@@ -79,11 +84,11 @@ export const messages = {
 
     //nullable: implemented in `validateField` method (index.js)
 
-    numeric: () => "The :attribute must be a number.",
+    numeric: () => "The :attribute must be a valid number.",
 
     present: () => "The :attribute field must be present.",
 
-    //regex
+    regex: () => "The :attribute is not a valid regular expression.",
 
     required: () => "The :attribute field is required.",
     required_if: () => "The :attribute field is required when :other is :value.",

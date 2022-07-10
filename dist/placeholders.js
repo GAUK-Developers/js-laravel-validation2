@@ -202,5 +202,11 @@ function getDefaultPlaceholderValue(placeholder, fieldData) {
   }
 
   var placeholderFunc = rulePlaceholders[placeholder];
-  return placeholderFunc && placeholderFunc(fieldData);
+
+  try {
+    return placeholderFunc && placeholderFunc(fieldData);
+  } catch (err) {
+    console.error("Warning: the \"".concat(placeholder, "\" property is not defined on ").concat(fieldData.key, "."));
+    return null;
+  }
 }

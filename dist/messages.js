@@ -7,6 +7,8 @@ exports.setMessageHandlers = setMessageHandlers;
 exports.setMessageHandler = setMessageHandler;
 exports.getMessage = getMessage;
 exports.getMessageHandler = getMessageHandler;
+exports.revertMessageHandlers = revertMessageHandlers;
+exports.getCurrentMessageHandlers = getCurrentMessageHandlers;
 exports.messages = void 0;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -14,6 +16,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var messages = {
   accepted: function accepted() {
     return "The :attribute must be accepted.";
+  },
+  accepted_if: function accepted_if() {
+    return "The :attribute must be accepted when :other is :value.";
   },
   // active_url: ({ value }) => {
   //This cannot be supported because JS does not support hostname lookups (dns_get_record in PHP)
@@ -40,13 +45,13 @@ var messages = {
   },
   //bail: is on by default but is `validateForm` call
   before: function before() {
-    return "The :attribute must be a date before :date.";
+    return "The :attribute must be before :date.";
   },
   before_or_equal: function before_or_equal() {
-    return "The :attribute must be a date before or equal to :date.";
+    return "The :attribute must be before or equal to :date.";
   },
   between: function between() {
-    return "";
+    return "The :attribute must be between :min and :max";
   },
   // TODO this one is more complicated
   boolean: function boolean() {
@@ -61,7 +66,15 @@ var messages = {
   date_equals: function date_equals() {
     return "The :attribute must be a date equal to :date.";
   },
-  //date_format: () => "The :attribute does not match the format :format.",
+  date_format: function date_format() {
+    return "The :attribute does not match the format :format.";
+  },
+  declined: function declined() {
+    return "You must decline :attribute.";
+  },
+  declined_if: function declined_if() {
+    return "You must decline :attribute if :other is :value.";
+  },
   different: function different() {
     return "The :attribute and :other must be different.";
   },
@@ -87,11 +100,11 @@ var messages = {
     return "The :attribute field must have a value.";
   },
   gt: function gt() {
-    return "";
+    return "The :attribute must be greater than :value.";
   },
   // TODO this one is more complicated
   gte: function gte() {
-    return "";
+    return "The attribute must be greater than or equal to :value.";
   },
   // TODO this one is more complicated
   image: function image() {
@@ -119,17 +132,23 @@ var messages = {
     return "The :attribute must be a valid JSON string.";
   },
   lt: function lt() {
-    return "";
+    return "The :attribute must be less than :value.";
   },
   // TODO this is more complicated, and is it done with size?
   lte: function lte() {
-    return "";
+    return "The :attribute must be less than or equal to :value.";
   },
   // TODO this is more complicated, and is it done with size?
+  mac_access: function mac_access() {
+    return "Invalid MAC address.";
+  },
   max: function max() {
     return "";
   },
   // TODO this is more complicated, and is it done with size?
+  multiple_of: function multiple_of() {
+    return "The :attribute must be a multiple of :value.";
+  },
   // mimes?
   // mimetypes?
   min: function min() {
@@ -142,12 +161,14 @@ var messages = {
   //not_regex
   //nullable: implemented in `validateField` method (index.js)
   numeric: function numeric() {
-    return "The :attribute must be a number.";
+    return "The :attribute must be a valid number.";
   },
   present: function present() {
     return "The :attribute field must be present.";
   },
-  //regex
+  regex: function regex() {
+    return "The :attribute is not a valid regular expression.";
+  },
   required: function required() {
     return "The :attribute field is required.";
   },
@@ -190,9 +211,17 @@ var messages = {
   uuid: function uuid() {
     return "The :attribute must be a valid UUID.";
   }
-}; //export default messages;
-
+};
 exports.messages = messages;
+var backupMessages = Object.assign({}, messages); //export default messages;
+
+function getCurrentMessageHandlers() {
+  return messages;
+}
+
+function revertMessageHandlers() {
+  Object.assign(messages, backupMessages);
+}
 
 function setMessageHandlers(newMessages) {
   Object.assign(messages, newMessages);
