@@ -20,10 +20,10 @@ export default {
     // },
     
     // TODO test
-    after: ({ value, params, values }) => values[params[0]] !== undefined ? b(value > toNumber(values[params[0]])) : b(new Date(value) > new Date(params[0])),
+    after: ({ value, params, values }) => values[params[0]] !== undefined ? b(new Date(value) > new Date(values[params[0]])) : b(new Date(value) > new Date(params[0])),
     
     // TODO test
-    after_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(value >= toNumber(values[params[0]])) : b(new Date(value) >= new Date(params[0])),
+    after_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(new Date(value) >= new Date(values[params[0]])) : b(new Date(value) >= new Date(params[0])),
     
     alpha: ({ value }) => b(typeof value === 'string') && !/[^a-z]/i.test(value),
     alpha_dash: ({ value }) => b(typeof value === 'string') && /^[A-Za-z\-_]+$/i.test(value), // Unicode is still missing!
@@ -48,10 +48,10 @@ export default {
     //bail: handled in index.js
     
     // TODO test
-    before: ({ value, params, values }) => values[params[0]] !== undefined ? b(value < toNumber(values[params[0]])) : b(new Date(value) < new Date(params[0])),
+    before: ({ value, params, values }) => values[params[0]] !== undefined ? b(new Date(value) < new Date(values[params[0]])) : b(new Date(value) < new Date(params[0])),
 
     // TODO test
-    before_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(value <= toNumber(values[params[0]])) : b(new Date(value) <= new Date(params[0])),
+    before_or_equal: ({ value, params, values }) => values[params[0]] !== undefined ? b(new Date(value) <= new Date(values[params[0]])) : b(new Date(value) <= new Date(params[0])),
     
     between: ({ value, params }) => {
         if (typeof value !== 'number' && !value) return false;
@@ -159,8 +159,10 @@ export default {
     
     filled: ({ value }) => isNotEmpty(value),
     
-    gt: ({ value, values, params }) => values[params[0]] === undefined || value > toNumber(values[params[0]]),
-    gte: ({ value, values, params }) => values[params[0]] === undefined || value >= toNumber(values[params[0]]),
+    // TODO test
+    gt: ({ value, values, params }) => values[params[0]] !== undefined ? value > toNumber(values[params[0]]) : value > toNumber(params[0]),
+    // TODO test
+    gte: ({ value, values, params }) => values[params[0]] !== undefined ? value >= toNumber(values[params[0]]) : value >= toNumber(params[0]),
     
     image: ({ value }) => value instanceof Image,
     
@@ -221,7 +223,7 @@ export default {
     min: ({ value, params }) => (b(value) || typeof value === 'number') && sizeOf(value) >= params[0],
 
     // TODO test
-    multiple_of: ({ value, params }) => typeof value === 'number' && params[0] && toNumber(params[0]) !== 0 && value % toNumber(params[0]) === 0,
+    multiple_of: ({ value, params }) => typeof value === 'number' && params[0] && toNumber(value) !== 0 && toNumber(params[0]) % value === 0,
     
     not_in: ({ value, params }) => params.findIndex(param => deepEquals(param, value)) === -1,
     

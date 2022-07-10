@@ -47,14 +47,14 @@ var _default = {
     var value = _ref3.value,
         params = _ref3.params,
         values = _ref3.values;
-    return values[params[0]] !== undefined ? b(value > toNumber(values[params[0]])) : b(new Date(value) > new Date(params[0]));
+    return values[params[0]] !== undefined ? b(new Date(value) > new Date(values[params[0]])) : b(new Date(value) > new Date(params[0]));
   },
   // TODO test
   after_or_equal: function after_or_equal(_ref4) {
     var value = _ref4.value,
         params = _ref4.params,
         values = _ref4.values;
-    return values[params[0]] !== undefined ? b(value >= toNumber(values[params[0]])) : b(new Date(value) >= new Date(params[0]));
+    return values[params[0]] !== undefined ? b(new Date(value) >= new Date(values[params[0]])) : b(new Date(value) >= new Date(params[0]));
   },
   alpha: function alpha(_ref5) {
     var value = _ref5.value;
@@ -95,14 +95,14 @@ var _default = {
     var value = _ref9.value,
         params = _ref9.params,
         values = _ref9.values;
-    return values[params[0]] !== undefined ? b(value < toNumber(values[params[0]])) : b(new Date(value) < new Date(params[0]));
+    return values[params[0]] !== undefined ? b(new Date(value) < new Date(values[params[0]])) : b(new Date(value) < new Date(params[0]));
   },
   // TODO test
   before_or_equal: function before_or_equal(_ref10) {
     var value = _ref10.value,
         params = _ref10.params,
         values = _ref10.values;
-    return values[params[0]] !== undefined ? b(value <= toNumber(values[params[0]])) : b(new Date(value) <= new Date(params[0]));
+    return values[params[0]] !== undefined ? b(new Date(value) <= new Date(values[params[0]])) : b(new Date(value) <= new Date(params[0]));
   },
   between: function between(_ref11) {
     var value = _ref11.value,
@@ -263,17 +263,19 @@ var _default = {
     var value = _ref27.value;
     return isNotEmpty(value);
   },
+  // TODO test
   gt: function gt(_ref28) {
     var value = _ref28.value,
         values = _ref28.values,
         params = _ref28.params;
-    return values[params[0]] === undefined || value > toNumber(values[params[0]]);
+    return values[params[0]] !== undefined ? value > toNumber(values[params[0]]) : value > toNumber(params[0]);
   },
+  // TODO test
   gte: function gte(_ref29) {
     var value = _ref29.value,
         values = _ref29.values,
         params = _ref29.params;
-    return values[params[0]] === undefined || value >= toNumber(values[params[0]]);
+    return values[params[0]] !== undefined ? value >= toNumber(values[params[0]]) : value >= toNumber(params[0]);
   },
   image: function image(_ref30) {
     var value = _ref30.value;
@@ -389,7 +391,7 @@ var _default = {
   multiple_of: function multiple_of(_ref45) {
     var value = _ref45.value,
         params = _ref45.params;
-    return typeof value === 'number' && params[0] && toNumber(params[0]) !== 0 && value % toNumber(params[0]) === 0;
+    return typeof value === 'number' && params[0] && toNumber(value) !== 0 && toNumber(params[0]) % value === 0;
   },
   not_in: function not_in(_ref46) {
     var value = _ref46.value,

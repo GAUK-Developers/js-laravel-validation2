@@ -380,12 +380,12 @@ describe('Rules', () => {
         {
             desc: 'truthy value',
             value: 1,
-            result: false,
+            result: true,
         },
         {
             desc: 'falsy value',
             value: 0,
-            result: false,
+            result: true,
         },
         {
             desc: 'null value',
