@@ -1,6 +1,6 @@
 {
   "name": "js-laravel-validation2",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Laravel style form validation for JavaScript, for submission to Laravel API.",
   "main": "index.js",
   "scripts": {
