@@ -184,7 +184,7 @@ function validateField(fieldData, formData) {
     }
 
     if (!result) {
-      if (!overrideNullable && nullable && (fieldData.value === null || fieldData.value === '' || fieldData.value === undefined)) {
+      if (!overrideNullable && nullable && (fieldData.value === null || fieldData.value === '' || fieldData.value === undefined) && !rule.key.match(/^required_/gi)) {
         continue;
       }
 
