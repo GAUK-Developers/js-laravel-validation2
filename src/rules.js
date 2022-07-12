@@ -66,6 +66,7 @@ export default {
     confirmed: ({ value, key, values }) => b(value === values[`${key}_confirmation`]),
     
     date: ({ value }) => b(typeof value !== 'number' && !isNaN(Date.parse(value))),
+    
     date_equals: ({ value, params }) => (Date.parse(value) === Date.parse(params[0])),
     
     // TODO test
