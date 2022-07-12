@@ -7,6 +7,8 @@ exports.validate = void 0;
 
 var _rules = _interopRequireDefault(require("./rules"));
 
+var _customRules = _interopRequireDefault(require("./custom-rules"));
+
 var _placeholders = require("./placeholders");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -155,7 +157,7 @@ function validateField(fieldData, formData) {
       continue;
     }
 
-    if (!_rules.default[rule.key]) {
+    if (!_rules.default[rule.key] && !_customRules.default[rule.key]) {
       console.warn("Could not find rule on field ".concat(fieldData.key, " rule=").concat(validation[i]));
       continue;
     } //TODO custom handling for 'sometimes' rule
@@ -171,14 +173,18 @@ function validateField(fieldData, formData) {
     var overrideNullable = false;
 
     try {
-      result = _rules.default[rule.key](params);
+      if (_rules.default[rule.key]) {
+        result = _rules.default[rule.key](params);
+      } else {
+        result = _customRules.default[rule.key](params);
+      }
     } catch (e) {
       console.warn("Error validating rule, most likely invalid params: rule".concat(rule.key, " field=").concat(fieldData.key));
       overrideNullable = true;
     }
 
     if (!result) {
-      if (!overrideNullable && nullable && fieldData.value === null) {
+      if (!overrideNullable && nullable && (fieldData.value === null || fieldData.value === '' || fieldData.value === undefined)) {
         continue;
       }
 
