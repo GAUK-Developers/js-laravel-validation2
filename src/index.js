@@ -1,4 +1,5 @@
 import RULES from './rules'
+import customRules from "./custom-rules";
 import { generateMessage } from './placeholders'
 
 const toExport = {};
@@ -121,7 +122,7 @@ function validateField(fieldData, formData) {
             continue;
         }
 
-        if (!RULES[rule.key]) {
+        if (!RULES[rule.key] && !customRules[rule.key]) {
             console.warn(`Could not find rule on field ${fieldData.key} rule=${validation[i]}`);
             continue;
         }
@@ -138,14 +139,19 @@ function validateField(fieldData, formData) {
         let result = false;
         let overrideNullable = false;
         try {
-            result = RULES[rule.key](params);
+            if(RULES[rule.key]){
+                result = RULES[rule.key](params);
+            }
+            else{
+                result = customRules[rule.key](params);
+            }
         } catch (e) {
             console.warn(`Error validating rule, most likely invalid params: rule${rule.key} field=${fieldData.key}`)
             overrideNullable = true;
         }
 
         if (!result) {
-            if (!overrideNullable && nullable && fieldData.value === null) {
+            if (!overrideNullable && nullable && (fieldData.value === null || fieldData.value === '' || fieldData.value === undefined)) {
                 continue;
             }
             errors.push(rule.key);
