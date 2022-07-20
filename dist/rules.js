@@ -458,7 +458,7 @@ var _default = {
         params = _ref53.params,
         values = _ref53.values;
     var required = Object.keys(values).filter(function (key) {
-      return params.includes(key) ? isNotEmpty(values[key]) : false;
+      return params.includes(key) ? b(values[key]) : false;
     }).length > 0;
     return !required || isNotEmpty(value);
   },
