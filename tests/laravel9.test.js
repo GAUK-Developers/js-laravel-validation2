@@ -148,6 +148,8 @@ describe('Laravel 9 rule updates', () => {
     it('Validates: numeric', () => {
 
         // numeric
+        expect(rules['numeric']({ value: '', params: [], values: {} })).toBeFalsy();
+        expect(rules['numeric']({ value: 0, params: [], values: {} })).toBeTruthy();
         expect(rules['numeric']({ value: 5, params: [], values: { } })).toBeTruthy();
         expect(rules['numeric']({ value: '5', params: [], values: { } })).toBeTruthy();
         expect(rules['numeric']({ value: '12,500', params: [], values: { } })).toBeFalsy();

@@ -406,12 +406,16 @@ var _default = {
   numeric: function numeric(_ref47) {
     var value = _ref47.value;
 
-    if (typeof value === 'number' || typeof value === 'string' && !isNaN(Number(value))) {
+    if (typeof value === 'number') {
       return true;
     }
 
     if (!value) {
       return false;
+    }
+
+    if (typeof value === 'string' && !isNaN(Number(value))) {
+      return true;
     }
 
     return !isNaN(value);
