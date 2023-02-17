@@ -57,7 +57,7 @@ export default {
         if (typeof value !== 'number' && !value) return false;
         const [min, max] = params;
         value = sizeOf(value);
-        return value > min && value < max;
+        return value >= min && value <= max;
     },
     
     // TODO test
@@ -87,7 +87,7 @@ export default {
         }
         const len = value.toString().length;
         const [min, max] = params;
-        return len > min && len < max;
+        return len >= min && len <= max;
     },
     
     dimensions: ({ value, params }) => {

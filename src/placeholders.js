@@ -101,7 +101,7 @@ function replacePlaceholders(message, fieldData) {
             placeholder = "name";
         }
 
-        const replacementValue = fieldData[placeholder];
+        let replacementValue = fieldData[placeholder];
 
         if (replacementValue === null || replacementValue === undefined) {
             

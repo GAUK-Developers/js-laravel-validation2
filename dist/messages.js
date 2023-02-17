@@ -3,16 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setMessageHandlers = setMessageHandlers;
-exports.setMessageHandler = setMessageHandler;
+exports.getCurrentMessageHandlers = getCurrentMessageHandlers;
 exports.getMessage = getMessage;
 exports.getMessageHandler = getMessageHandler;
-exports.revertMessageHandlers = revertMessageHandlers;
-exports.getCurrentMessageHandlers = getCurrentMessageHandlers;
 exports.messages = void 0;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+exports.revertMessageHandlers = revertMessageHandlers;
+exports.setMessageHandler = setMessageHandler;
+exports.setMessageHandlers = setMessageHandlers;
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var messages = {
   accepted: function accepted() {
     return "The :attribute must be accepted.";
@@ -44,6 +45,7 @@ var messages = {
     return "The :attribute must be an array.";
   },
   //bail: is on by default but is `validateForm` call
+
   before: function before() {
     return "The :attribute must be before :date.";
   },
@@ -54,7 +56,8 @@ var messages = {
     return "The :attribute must be between :min and :max";
   },
   // TODO this one is more complicated
-  boolean: function boolean() {
+
+  "boolean": function boolean() {
     return "The :attribute field must be true or false.";
   },
   confirmed: function confirmed() {
@@ -107,10 +110,11 @@ var messages = {
     return "The attribute must be greater than or equal to :value.";
   },
   // TODO this one is more complicated
+
   image: function image() {
     return "The :attribute must be an image.";
   },
-  in: function _in() {
+  "in": function _in() {
     return "The selected :attribute is invalid.";
   },
   in_array: function in_array() {
@@ -139,6 +143,7 @@ var messages = {
     return "The :attribute must be less than or equal to :value.";
   },
   // TODO this is more complicated, and is it done with size?
+
   mac_access: function mac_access() {
     return "Invalid MAC address.";
   },
@@ -146,20 +151,25 @@ var messages = {
     return "";
   },
   // TODO this is more complicated, and is it done with size?
+
   multiple_of: function multiple_of() {
     return "The :attribute must be a multiple of :value.";
   },
   // mimes?
   // mimetypes?
+
   min: function min() {
     return "";
   },
   // TODO this is more complicated, and is it done with size?
+
   not_in: function not_in() {
     return "The selected :attribute is invalid.";
   },
   //not_regex
+
   //nullable: implemented in `validateField` method (index.js)
+
   numeric: function numeric() {
     return "The :attribute must be a valid number.";
   },
@@ -197,7 +207,9 @@ var messages = {
     return "";
   },
   // TODO this is more complicated
+
   // TODO starts_with
+
   string: function string() {
     return "The :attribute must be a string.";
   },
@@ -205,6 +217,7 @@ var messages = {
     return "The :attribute must be a valid zone.";
   },
   // TODO unique
+
   url: function url() {
     return "The :attribute format is invalid.";
   },
@@ -213,32 +226,28 @@ var messages = {
   }
 };
 exports.messages = messages;
-var backupMessages = Object.assign({}, messages); //export default messages;
+var backupMessages = Object.assign({}, messages);
+
+//export default messages;
 
 function getCurrentMessageHandlers() {
   return messages;
 }
-
 function revertMessageHandlers() {
   Object.assign(messages, backupMessages);
 }
-
 function setMessageHandlers(newMessages) {
   Object.assign(messages, newMessages);
 }
-
 function setMessageHandler(rule, createMessage) {
   setMessageHandlers(_defineProperty({}, rule, createMessage));
 }
-
 function getMessage(rule, fieldData) {
   if (messages[rule] === undefined) {
     return "";
   }
-
   return messages[rule](fieldData);
 }
-
 function getMessageHandler(rule) {
   return messages[rule];
 }

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 var _default = {
   "html": "text/html",
   "htm": "text/html",
@@ -98,4 +98,4 @@ var _default = {
   "m4v": "video/mp4",
   "mp4": "video/mp4"
 };
-exports.default = _default;
+exports["default"] = _default;

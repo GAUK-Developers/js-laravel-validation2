@@ -1,11 +1,8 @@
 "use strict";
 
 var _messages = require("./messages");
-
 var _placeholders = require("./placeholders");
-
 var _index = require("./index");
-
 var validation = {
   setMessageHandlers: _messages.setMessageHandlers,
   setMessageHandler: _messages.setMessageHandler,
