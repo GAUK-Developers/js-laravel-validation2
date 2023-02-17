@@ -292,6 +292,25 @@ export default {
         return !required || isNotEmpty(value);
     },
 
+    required_if_multiple: ({ value, params, values }) => {
+        let vals = {};  
+        for (let i = 0; i < params.length ; i += 2) {
+            vals[params[i]] = params[i+1];
+        }
+
+        let matching = {}
+        for (const [key, val] of Object.entries(vals)) {
+            if (values.hasOwnProperty(key)) {
+                 matching[key] = values[key] == val;
+            }
+        }
+
+        required =
+            (matching.length === vals.length) ? Object.values(matching).every(Boolean) : true;
+
+        return !required;
+    },
+
     // required_array_keys
 
     same: ({ value, values, params }) => b(value === values[params[0]]),//allows same arrays and objects

@@ -71,6 +71,9 @@ export const DEFAULT_PLACEHOLDERS = {
     "required_without_all": {
         values: ({ params }) => params,
     },
+    "required_if_multiple": {
+        values: ({ params }) => params
+    },
     "required_unless": {
         other: ({ params }) => params[0],
         value: ({ params }) => params[1],

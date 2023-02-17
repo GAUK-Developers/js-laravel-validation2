@@ -465,46 +465,66 @@ var _default = {
     }).length === params.length;
     return !required || isNotEmpty(value);
   },
+  required_if_multiple: function required_if_multiple(_ref57) {
+    var value = _ref57.value,
+      params = _ref57.params,
+      values = _ref57.values;
+    var vals = {};
+    for (var i = 0; i < params.length; i += 2) {
+      vals[params[i]] = params[i + 1];
+    }
+    var matching = {};
+    for (var _i2 = 0, _Object$entries = Object.entries(vals); _i2 < _Object$entries.length; _i2++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+        key = _Object$entries$_i[0],
+        val = _Object$entries$_i[1];
+      if (values.hasOwnProperty(key)) {
+        matching[key] = values[key] == val;
+      }
+    }
+    required = matching.length === vals.length ? Object.values(matching).every(Boolean) : true;
+    return !required;
+  },
   // required_array_keys
 
-  same: function same(_ref57) {
-    var value = _ref57.value,
-      values = _ref57.values,
-      params = _ref57.params;
+  same: function same(_ref58) {
+    var value = _ref58.value,
+      values = _ref58.values,
+      params = _ref58.params;
     return b(value === values[params[0]]);
   },
   //allows same arrays and objects
 
-  size: function size(_ref58) {
-    var value = _ref58.value,
-      params = _ref58.params;
+  size: function size(_ref59) {
+    var value = _ref59.value,
+      params = _ref59.params;
     var size = !b(value) && typeof value !== 'number' ? 0 : sizeOf(value);
     return size === parseInt(params[0]);
   },
-  starts_with: function starts_with(_ref59) {
-    var value = _ref59.value,
-      params = _ref59.params;
+  starts_with: function starts_with(_ref60) {
+    var value = _ref60.value,
+      params = _ref60.params;
     if (Array.isArray(value)) {
       value = value.join("");
     }
     return String(value).startsWith(params[0]);
   },
-  string: function string(_ref60) {
-    var value = _ref60.value;
+  string: function string(_ref61) {
+    var value = _ref61.value;
     return typeof value === 'string';
   },
-  timezone: function timezone(_ref61) {
-    var value = _ref61.value;
+  timezone: function timezone(_ref62) {
+    var value = _ref62.value;
     return _timezones["default"].includes(value);
   },
   // unique
 
-  url: function url(_ref62) {
-    var value = _ref62.value;
+  url: function url(_ref63) {
+    var value = _ref63.value;
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
   },
-  uuid: function uuid(_ref63) {
-    var value = _ref63.value;
+  uuid: function uuid(_ref64) {
+    var value = _ref64.value;
     return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
   }
 };
