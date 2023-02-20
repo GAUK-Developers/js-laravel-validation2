@@ -136,28 +136,33 @@ var DEFAULT_PLACEHOLDERS = (_DEFAULT_PLACEHOLDERS = {
     var params = _ref23.params;
     return params;
   }
-}), _defineProperty(_DEFAULT_PLACEHOLDERS, "required_unless", {
-  other: function other(_ref24) {
+}), _defineProperty(_DEFAULT_PLACEHOLDERS, "required_if_multiple", {
+  values: function values(_ref24) {
     var params = _ref24.params;
+    return params;
+  }
+}), _defineProperty(_DEFAULT_PLACEHOLDERS, "required_unless", {
+  other: function other(_ref25) {
+    var params = _ref25.params;
     return params[0];
   },
-  value: function value(_ref25) {
-    var params = _ref25.params;
+  value: function value(_ref26) {
+    var params = _ref26.params;
     return params[1];
   }
 }), _defineProperty(_DEFAULT_PLACEHOLDERS, "same", {
-  other: function other(_ref26) {
-    var params = _ref26.params;
-    return params[0];
-  }
-}), _defineProperty(_DEFAULT_PLACEHOLDERS, "size", {
-  size: function size(_ref27) {
+  other: function other(_ref27) {
     var params = _ref27.params;
     return params[0];
   }
-}), _defineProperty(_DEFAULT_PLACEHOLDERS, "starts_with", {
-  values: function values(_ref28) {
+}), _defineProperty(_DEFAULT_PLACEHOLDERS, "size", {
+  size: function size(_ref28) {
     var params = _ref28.params;
+    return params[0];
+  }
+}), _defineProperty(_DEFAULT_PLACEHOLDERS, "starts_with", {
+  values: function values(_ref29) {
+    var params = _ref29.params;
     return params.length > 1 ? params : params[0];
   }
 }), _DEFAULT_PLACEHOLDERS);

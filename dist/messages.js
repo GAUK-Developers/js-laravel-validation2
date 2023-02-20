@@ -197,6 +197,9 @@ var messages = {
   required_without: function required_without() {
     return "The :attribute field is required when :values is not present.";
   },
+  required_if_multiple: function required_if_multiple() {
+    return "The :attribute field is required when :values is present.";
+  },
   required_without_all: function required_without_all() {
     return "The :attribute field is required when none of :values are present.";
   },
