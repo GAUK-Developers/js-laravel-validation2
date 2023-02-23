@@ -20,14 +20,14 @@ var _default = {
   // TODO test
   accepted: function accepted(_ref) {
     var value = _ref.value;
-    return ['yes', 'on', 1, true].includes(value);
+    return ["yes", "on", 1, true].includes(value);
   },
   // TODO test
   accepted_if: function accepted_if(_ref2) {
     var value = _ref2.value,
       values = _ref2.values,
       params = _ref2.params;
-    return values[params[0]] === params[1] && ['yes', 'on', 1, true].includes(value);
+    return values[params[0]] === params[1] && ["yes", "on", 1, true].includes(value);
   },
   // active_url: ({ value }) => {
   //This cannot be supported because JS does not support hostname lookups (dns_get_record in PHP)
@@ -50,16 +50,16 @@ var _default = {
   },
   alpha: function alpha(_ref5) {
     var value = _ref5.value;
-    return b(typeof value === 'string') && !/[^a-z]/i.test(value);
+    return b(typeof value === "string") && !/[^a-z]/i.test(value);
   },
   alpha_dash: function alpha_dash(_ref6) {
     var value = _ref6.value;
-    return b(typeof value === 'string') && /^[A-Za-z\-_]+$/i.test(value);
+    return b(typeof value === "string") && /^[A-Za-z\-_]+$/i.test(value);
   },
   // Unicode is still missing!
   alpha_num: function alpha_num(_ref7) {
     var value = _ref7.value;
-    return b(typeof value === 'string') && /^[a-z0-9]+$/i.test(value);
+    return b(typeof value === "string") && /^[a-z0-9]+$/i.test(value);
   },
   // TODO test
   array: function array(_ref8) {
@@ -68,7 +68,7 @@ var _default = {
     if (!Array.isArray(value)) return false;
     if (params.length && value.length) {
       for (var x in value) {
-        if (_typeof(value[x]) !== 'object' || value[x] === null) return false;
+        if (_typeof(value[x]) !== "object" || value[x] === null) return false;
         var row = value[x];
         var keys = Object.keys(row);
         for (var y in keys) {
@@ -97,7 +97,7 @@ var _default = {
   between: function between(_ref11) {
     var value = _ref11.value,
       params = _ref11.params;
-    if (typeof value !== 'number' && !value) return false;
+    if (typeof value !== "number" && !value) return false;
     var _params = _slicedToArray(params, 2),
       min = _params[0],
       max = _params[1];
@@ -107,7 +107,7 @@ var _default = {
   // TODO test
   "boolean": function boolean(_ref12) {
     var value = _ref12.value;
-    return typeof value === 'boolean' || [1, 0, '1', '0', 'true', 'false'].includes(value);
+    return typeof value === "boolean" || [1, 0, "1", "0", "true", "false"].includes(value);
   },
   confirmed: function confirmed(_ref13) {
     var value = _ref13.value,
@@ -117,7 +117,7 @@ var _default = {
   },
   date: function date(_ref14) {
     var value = _ref14.value;
-    return b(typeof value !== 'number' && !isNaN(Date.parse(value)));
+    return b(typeof value !== "number" && !isNaN(Date.parse(value)));
   },
   date_equals: function date_equals(_ref15) {
     var value = _ref15.value,
@@ -133,14 +133,14 @@ var _default = {
   // TODO test
   declined: function declined(_ref17) {
     var value = _ref17.value;
-    return ['no', 'off', 0, false].includes(value);
+    return ["no", "off", 0, false].includes(value);
   },
   // TODO test
   declined_if: function declined_if(_ref18) {
     var value = _ref18.value,
       params = _ref18.params,
       values = _ref18.values;
-    return values[params[0]] === params[1] && ['no', 'off', 0, false].includes(value);
+    return values[params[0]] === params[1] && ["no", "off", 0, false].includes(value);
   },
   different: function different(_ref19) {
     var value = _ref19.value,
@@ -153,12 +153,12 @@ var _default = {
   digits: function digits(_ref20) {
     var value = _ref20.value,
       params = _ref20.params;
-    return !isNaN(value) && (typeof value === 'number' || b(value)) && value.toString().length === parseInt(params[0]);
+    return !isNaN(value) && (typeof value === "number" || b(value)) && value.toString().length === parseInt(params[0]);
   },
   digits_between: function digits_between(_ref21) {
     var value = _ref21.value,
       params = _ref21.params;
-    if (typeof value !== 'number' && !b(value)) {
+    if (typeof value !== "number" && !b(value)) {
       return false;
     }
     var len = value.toString().length;
@@ -176,25 +176,25 @@ var _default = {
     for (var i = 0; i < params.length; i++) {
       var param = params[i];
       if (!param) continue;
-      var pair = param.split('=');
+      var pair = param.split("=");
       var paramVal = parseInt(pair[1]);
       switch (pair[0]) {
-        case 'width':
+        case "width":
           if (width !== paramVal) return false;
           break;
-        case 'min_width':
+        case "min_width":
           if (width < paramVal) return false;
           break;
-        case 'max_width':
+        case "max_width":
           if (width > paramVal) return false;
           break;
-        case 'height':
+        case "height":
           if (height !== paramVal) return false;
           break;
-        case 'min_height':
+        case "min_height":
           if (height < paramVal) return false;
           break;
-        case 'max_height':
+        case "max_height":
           if (height > paramVal) return false;
           break;
       }
@@ -280,7 +280,7 @@ var _default = {
   },
   integer: function integer(_ref33) {
     var value = _ref33.value;
-    return Number.isInteger(typeof value === 'string' ? parseInt(value) : value);
+    return Number.isInteger(typeof value === "string" ? parseInt(value) : value);
   },
   ip: function ip(_ref34) {
     var value = _ref34.value;
@@ -296,7 +296,7 @@ var _default = {
   },
   json: function json(_ref37) {
     var value = _ref37.value;
-    if (typeof value !== 'string') return false;
+    if (typeof value !== "string") return false;
     try {
       JSON.parse(value);
     } catch (e) {
@@ -326,7 +326,7 @@ var _default = {
   max: function max(_ref41) {
     var value = _ref41.value,
       params = _ref41.params;
-    return (b(value) || typeof value === 'number') && sizeOf(value) <= params[0];
+    return (b(value) || typeof value === "number") && sizeOf(value) <= params[0];
   },
   mimetypes: function mimetypes(_ref42) {
     var value = _ref42.value,
@@ -356,13 +356,13 @@ var _default = {
   min: function min(_ref44) {
     var value = _ref44.value,
       params = _ref44.params;
-    return (b(value) || typeof value === 'number') && sizeOf(value) >= params[0];
+    return (b(value) || typeof value === "number") && sizeOf(value) >= params[0];
   },
   // TODO test
   multiple_of: function multiple_of(_ref45) {
     var value = _ref45.value,
       params = _ref45.params;
-    return typeof value === 'number' && params[0] && toNumber(value) !== 0 && toNumber(params[0]) % value === 0;
+    return typeof value === "number" && params[0] && toNumber(value) !== 0 && toNumber(params[0]) % value === 0;
   },
   not_in: function not_in(_ref46) {
     var value = _ref46.value,
@@ -378,13 +378,13 @@ var _default = {
   // TODO test
   numeric: function numeric(_ref47) {
     var value = _ref47.value;
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       return true;
     }
     if (!value) {
       return false;
     }
-    if (typeof value === 'string' && !isNaN(Number(value))) {
+    if (typeof value === "string" && !isNaN(Number(value))) {
       return true;
     }
     return !isNaN(value);
@@ -482,8 +482,8 @@ var _default = {
         matching[key] = values[key] == val;
       }
     }
-    required = matching.length === vals.length ? Object.values(matching).every(Boolean) : true;
-    return !required;
+    required = Object.keys(matching).length === Object.keys(vals).length ? Object.values(matching).every(Boolean) : false;
+    return !required || isNotEmpty(value);
   },
   // required_array_keys
 
@@ -498,7 +498,7 @@ var _default = {
   size: function size(_ref59) {
     var value = _ref59.value,
       params = _ref59.params;
-    var size = !b(value) && typeof value !== 'number' ? 0 : sizeOf(value);
+    var size = !b(value) && typeof value !== "number" ? 0 : sizeOf(value);
     return size === parseInt(params[0]);
   },
   starts_with: function starts_with(_ref60) {
@@ -511,7 +511,7 @@ var _default = {
   },
   string: function string(_ref61) {
     var value = _ref61.value;
-    return typeof value === 'string';
+    return typeof value === "string";
   },
   timezone: function timezone(_ref62) {
     var value = _ref62.value;
@@ -534,11 +534,11 @@ var _default = {
 //These functions are tested through rules that use them
 exports["default"] = _default;
 function isNotEmpty(value) {
-  return typeof value === 'number' || typeof value === 'boolean' || !!value;
+  return typeof value === "number" || typeof value === "boolean" || !!value;
 }
 function sizeOf(value) {
   //TODO files, images other things
-  if (value.hasOwnProperty('length')) {
+  if (value.hasOwnProperty("length")) {
     value = value.length;
   }
   return value;
