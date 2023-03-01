@@ -482,7 +482,7 @@ var _default = {
         matching[key] = values[key] == val;
       }
     }
-    required = Object.keys(matching).length === Object.keys(vals).length ? Object.values(matching).every(Boolean) : false;
+    var required = Object.keys(matching).length === Object.keys(vals).length ? Object.values(matching).every(Boolean) : false;
     console.log("required_if_multiple: ", {
       vals: vals,
       matching: matching,
