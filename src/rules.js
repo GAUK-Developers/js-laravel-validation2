@@ -372,6 +372,8 @@ export default {
         ? Object.values(matching).every(Boolean)
         : false;
 
+    console.log(`required_if_multiple: `, { vals, matching, required });
+
     return !required || isNotEmpty(value);
   },
 

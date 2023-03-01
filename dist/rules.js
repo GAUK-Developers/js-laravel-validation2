@@ -483,6 +483,11 @@ var _default = {
       }
     }
     required = Object.keys(matching).length === Object.keys(vals).length ? Object.values(matching).every(Boolean) : false;
+    console.log("required_if_multiple: ", {
+      vals: vals,
+      matching: matching,
+      required: required
+    });
     return !required || isNotEmpty(value);
   },
   // required_array_keys
