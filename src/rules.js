@@ -367,7 +367,7 @@ export default {
       }
     }
 
-    required =
+    const required =
       Object.keys(matching).length === Object.keys(vals).length
         ? Object.values(matching).every(Boolean)
         : false;
